@@ -38,7 +38,7 @@ export function AudioProvider({children}: Children) {
 
   const [audioFiles, setAudioFiles] = useState<MediaLibrary.Asset[]>([])
   const [permissionError, setPermissionError] = useState(false)
-
+ 
   const permissionAlert = () => {
     Alert.alert(
       "Requer Permisão",
@@ -57,6 +57,7 @@ export function AudioProvider({children}: Children) {
   }
 
   const getAudioFiles = async() => {
+
     let media = await MediaLibrary.getAssetsAsync({
       mediaType: 'audio'
     })

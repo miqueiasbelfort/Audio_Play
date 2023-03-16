@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\SENPAI\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add -D @types/expo-media-library
+  C:\Program Files\nodejs\node.exe C:\Users\SENPAI\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add -D @types/recyclerlistview
 
 PATH: 
   C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk-15.0.2\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Git\cmd;C:\ProgramData\UNIVALI\Portugol Studio;C:\xampp\mysql\bin;C:\Program Files\Go\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\SENPAI\AppData\Local\Microsoft\WindowsApps;C:\Program Files\MongoDB\Server\5.0\bin;C:\Program Files\heroku\bin;C:\Users\SENPAI\go\bin;C:\Users\SENPAI\AppData\Roaming\npm
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fexpo-media-library: Not found
+  Error: https://registry.yarnpkg.com/@types%2frecyclerlistview: Not found
       at params.callback [as _callback] (C:\Users\SENPAI\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
       at self.callback (C:\Users\SENPAI\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
       at Request.emit (node:events:513:28)
@@ -46,7 +46,8 @@ npm manifest:
       "react": "18.2.0",
       "react-native": "0.71.3",
       "react-native-safe-area-context": "4.5.0",
-      "react-native-screens": "~3.20.0"
+      "react-native-screens": "~3.20.0",
+      "recyclerlistview": "^4.2.0"
     },
     "devDependencies": {
       "@babel/core": "^7.20.0",
@@ -4401,7 +4402,7 @@ Lockfile:
     dependencies:
       p-locate "^5.0.0"
   
-  lodash.debounce@^4.0.8:
+  lodash.debounce@4.0.8, lodash.debounce@^4.0.8:
     version "4.0.8"
     resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
     integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
@@ -5595,7 +5596,7 @@ Lockfile:
       kleur "^3.0.3"
       sisteransi "^1.0.5"
   
-  prop-types@*:
+  prop-types@*, prop-types@15.8.1:
     version "15.8.1"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
     integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5828,6 +5829,15 @@ Lockfile:
       esprima "~4.0.0"
       source-map "~0.6.1"
       tslib "^2.0.1"
+  
+  recyclerlistview@^4.2.0:
+    version "4.2.0"
+    resolved "https://registry.yarnpkg.com/recyclerlistview/-/recyclerlistview-4.2.0.tgz#a140149aaa470c9787a1426452651934240d69ef"
+    integrity sha512-uuBCi0c+ggqHKwrzPX4Z/mJOzsBbjZEAwGGmlwpD/sD7raXixdAbdJ6BTcAmuWG50Cg4ru9p12M94Njwhr/27A==
+    dependencies:
+      lodash.debounce "4.0.8"
+      prop-types "15.8.1"
+      ts-object-utils "0.0.5"
   
   regenerate-unicode-properties@^10.1.0:
     version "10.1.0"
@@ -6688,6 +6698,11 @@ Lockfile:
     version "0.1.13"
     resolved "https://registry.yarnpkg.com/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz#784fd3d679722bc103b1b4b8030bcddb5db2a699"
     integrity sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==
+  
+  ts-object-utils@0.0.5:
+    version "0.0.5"
+    resolved "https://registry.yarnpkg.com/ts-object-utils/-/ts-object-utils-0.0.5.tgz#95361cdecd7e52167cfc5e634c76345e90a26077"
+    integrity sha512-iV0GvHqOmilbIKJsfyfJY9/dNHCs969z3so90dQWsO1eMMozvTpnB1MEaUbb3FYtZTGjv5sIy/xmslEz0Rg2TA==
   
   tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.0:
     version "2.5.0"

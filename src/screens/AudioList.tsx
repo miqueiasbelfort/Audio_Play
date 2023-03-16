@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native'
 import React, {useContext} from 'react'
 
 import { AudioContext } from '../context/AudioProvider'
+
+import AudioFile from '../components/AudioFile'
 
 interface AssetIMedia {
   albumId:          string;
@@ -15,18 +17,18 @@ interface AssetIMedia {
   uri:              string;
   width:            number;
 }
+//{/*<Text style={{padding: 10}} key={item.id}>{item.filename}</Text>*/}
 
 export default function AudioList() {
 
   const contextType = useContext(AudioContext)
 
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView>
       {
         contextType.audioFiles.map((item: AssetIMedia) => (
-          <Text style={{padding: 10, borderBottomColor: 'gray', borderBottomWidth: 1}} key={item.id}>
-            {item.filename}
-          </Text>
+          <AudioFile/>
         ))
       }
     </ScrollView>
