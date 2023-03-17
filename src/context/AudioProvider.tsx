@@ -67,7 +67,7 @@ export function AudioProvider({children}: Children) {
     })
 
     setAudioFiles(media.assets)
-    //console.log(media.assets.length)
+    //console.log(media.assets)
   }
 
   const getPermission = async () => {

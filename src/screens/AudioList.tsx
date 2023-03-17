@@ -4,6 +4,7 @@ import React, {useContext} from 'react'
 import { AudioContext } from '../context/AudioProvider'
 
 import AudioFile from '../components/AudioFile'
+import Screen from '../components/Screen'
 
 interface AssetIMedia {
   albumId:          string;
@@ -25,12 +26,21 @@ export default function AudioList() {
 
 
   return (
-    <ScrollView>
-      {
-        contextType.audioFiles.map((item: AssetIMedia) => (
-          <AudioFile/>
-        ))
-      }
+    <ScrollView style={styles.container}>
+      <Screen>
+        {
+          contextType.audioFiles.map((item: AssetIMedia, i: number) => (
+            <AudioFile 
+              key={i} 
+              title={item.filename}
+              duration={item.duration}
+              onOptionPress={() => {
+                console.log('Hello World')
+              }}
+            />
+          ))
+        }
+      </Screen>
     </ScrollView>
   )
 }
@@ -39,5 +49,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignContent: 'center',
+        paddingTop: 10,
+        marginBottom: 5,
+        backgroundColor: '#fff'
     }
 })
