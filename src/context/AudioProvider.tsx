@@ -1,9 +1,22 @@
 import { View, Text, Alert } from 'react-native'
 import React, {useEffect, createContext, useState} from 'react'
 import * as MediaLibrary from 'expo-media-library'
+import {Audio, AVPlaybackStatus} from 'expo-av'
 
 type Children = {
   children: React.ReactNode
+}
+export interface AssetIMedia {
+  albumId:          string;
+  creationTime:     number;
+  duration:         number;
+  filename:         string;
+  height:           number;
+  id:               string;
+  mediaType:        string;
+  modificationTime: number;
+  uri:              string;
+  width:            number;
 }
 
   // {
@@ -39,6 +52,11 @@ export function AudioProvider({children}: Children) {
   const [audioFiles, setAudioFiles] = useState<MediaLibrary.Asset[]>([])
   const [permissionError, setPermissionError] = useState(false)
  
+  const [playbackObj, setPlaybackObj] = useState<Audio.Sound>()
+  const [soundObj, setSoundObj] = useState<AVPlaybackStatus | null | undefined>(null)
+  const [currentAudio, setCurrentAudio] = useState<AssetIMedia | null>(null)
+
+
   const permissionAlert = () => {
     Alert.alert(
       "Requer Permisão",
@@ -110,7 +128,16 @@ export function AudioProvider({children}: Children) {
   return (
     <AudioContext.Provider
     
-      value={{audioFiles, permissionError}}
+      value={{
+        audioFiles, 
+        permissionError,
+        playbackObj,
+        setPlaybackObj,
+        soundObj,
+        setSoundObj,
+        currentAudio,
+        setCurrentAudio
+      }}
 
     >
       {children}

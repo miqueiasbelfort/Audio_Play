@@ -4,6 +4,8 @@ import React, {useContext, useState} from 'react'
 import { AudioContext } from '../context/AudioProvider'
 import {Audio, AVPlaybackStatus} from 'expo-av'
 
+import { play, pause, resume, playNext } from '../misc/audioController'
+
 import AudioFile from '../components/AudioFile'
 import Screen from '../components/Screen'
 import OptionsModal from '../components/OptionsModal'
@@ -47,9 +49,9 @@ export default function AudioList() {
   const [modalVisible, setModalVisble] = useState(false)
   const [audioInfo, setAudioInfo] = useState<AssetIMedia | null>(null)
   
-  const [playbackObj, setPlaybackObj] = useState<Audio.Sound | null>(null)
-  const [soundObj, setSoundObj] = useState<AVPlaybackStatus | null | undefined>(null)
-  const [currentAudio, setCurrentAudio] = useState<AssetIMedia | null>(null)
+  // const [playbackObj, setPlaybackObj] = useState<Audio.Sound>()
+  // const [soundObj, setSoundObj] = useState<AVPlaybackStatus | null | undefined>(null)
+  // const [currentAudio, setCurrentAudio] = useState<AssetIMedia | null>(null)
 
   const onPlayPress = () => {}
   const onPLayListPress = () => {}
@@ -58,25 +60,32 @@ export default function AudioList() {
   const handleAudioPress = async (audio: AssetIMedia) => {
     
     // Play Audio for the first time
-    if(soundObj === null){
+    if(contextType.soundObj === null){
       const playbackObj = new Audio.Sound()
-      const status = await playbackObj.loadAsync({uri: audio.uri}, {shouldPlay: true})
+      const status = await play(playbackObj, audio.uri)
 
-      setCurrentAudio(audio)
-      setPlaybackObj(playbackObj)
-      setSoundObj(status)
+      contextType.setCurrentAudio(audio)
+      contextType.setPlaybackObj(playbackObj)
+      contextType.setSoundObj(status)
     }
 
     // pause audio
-    if(soundObj?.isLoaded && soundObj.isPlaying){
-      const status = await playbackObj?.setStatusAsync({shouldPlay: false})
-      setSoundObj(status)
+    if(contextType.soundObj?.isLoaded && contextType.soundObj.isPlaying && contextType.currentAudio?.id == audio.id){
+      const status = await pause(contextType.playbackObj)
+      contextType.setSoundObj(status)
     }
 
     // resume audio
-    if(soundObj?.isLoaded && !soundObj.isPlaying && currentAudio?.id == audio.id){
-      const status = await playbackObj?.playAsync()
-      setSoundObj(status)
+    if(contextType.soundObj?.isLoaded && !contextType.soundObj.isPlaying && contextType.currentAudio?.id == audio.id){
+      const status = await resume(contextType.playbackObj)
+      contextType.setSoundObj(status)
+    }
+
+    // select another audio
+    if(contextType.soundObj?.isLoaded && contextType.currentAudio?.id !== audio.id){
+      const status = await playNext(contextType.playbackObj, audio.uri)
+      contextType.setCurrentAudio(audio)
+      contextType.setSoundObj(status)
     }
 
   }
