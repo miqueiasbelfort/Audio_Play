@@ -12,6 +12,7 @@
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "expo": "~48.0.6",
+    "expo-av": "~13.2.1",
     "expo-media-library": "~15.2.2",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",

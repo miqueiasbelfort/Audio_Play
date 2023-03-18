@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import {Entypo} from '@expo/vector-icons'
 
@@ -6,9 +6,10 @@ interface AudioListI {
   title: string,
   duration: number,
   onOptionPress: () => void,
+  onAudioPress: () => Promise<void>,
 }
 
-export default function AudioFile({title, duration, onOptionPress}: AudioListI) {
+export default function AudioFile({title, duration, onOptionPress, onAudioPress}: AudioListI) {
   
   const getThumbnailText = (filename: string) => filename[0]
 
@@ -39,16 +40,17 @@ export default function AudioFile({title, duration, onOptionPress}: AudioListI) 
 
   return (
     <View style={styles.container}>
-      
-      <View style={styles.leftContainer}>
-        <View style={styles.thumbnail}>
-            <Text style={styles.thumbnailText}>{getThumbnailText(title)}</Text>
+      <TouchableWithoutFeedback onPress={onAudioPress}>
+        <View style={styles.leftContainer}>
+          <View style={styles.thumbnail}>
+              <Text style={styles.thumbnailText}>{getThumbnailText(title)}</Text>
+          </View>
+          <View style={styles.titleContainer}>
+              <Text numberOfLines={1} style={styles.title}>{title}</Text>
+              <Text style={styles.timeText}>{convertTime(duration)}</Text>
+          </View>
         </View>
-        <View style={styles.titleContainer}>
-            <Text numberOfLines={1} style={styles.title}>{title}</Text>
-            <Text style={styles.timeText}>{convertTime(duration)}</Text>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
 
       <View style={styles.rightContainer}>
         <Entypo
