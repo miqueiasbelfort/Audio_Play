@@ -16,7 +16,7 @@ export default function PlayerButtom(props: Button) {
 
     const getIconName = (type: string) => {
         switch(type){
-            case 'PlAY':
+            case 'PLAY':
                 return "pausecircle"
             case 'PAUSE':
                 return "playcircleo"

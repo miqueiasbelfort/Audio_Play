@@ -1,38 +1,61 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
-import React from 'react'
+import React, {useContext} from 'react'
 import Slider from '@react-native-community/slider'
 
 import Screen from '../components/Screen'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import PlayerButtom from '../components/PlayerButtom'
+import { AudioContext } from '../context/AudioProvider'
 
 const {width} = Dimensions.get('window')
 
 export default function Player() {
 
+  const {
+    totalAudioCount, 
+    currentAudioIndex,
+    currentAudio,
+    isPlaying,
+    playbackPossition,
+    playbackDuration
+  } = useContext(AudioContext)
+
+  const calculateSeebBar = () => {
+    if(playbackPossition != 0 && playbackDuration != 0){
+      return playbackPossition / playbackDuration
+    }
+    return 0
+  }
+
   return (
     <Screen>
       <View style={styles.container}>
-        <Text style={styles.audioCount}>1 / 99</Text>
+        <Text style={styles.audioCount}>{currentAudioIndex + 1} / {totalAudioCount}</Text>
         <View style={styles.midBannerContainer}>
           <MaterialCommunityIcons 
             name='music-circle' 
             size={300} 
-            color='#1b39b1'
+            color={isPlaying ? '#1b39b1' : '#3b3b3b'}
           />
         </View>
         <View style={styles.audioPlayerContainer}>
-            <Text numberOfLines={1} style={styles.audioTitle}>Audio File Name</Text>
+            <Text numberOfLines={1} style={styles.audioTitle}>{currentAudio.filename}</Text>
             <Slider
               style={{width: width, height: 40}}
               minimumValue={0}
               maximumValue={1}
+              value={calculateSeebBar()}
               minimumTrackTintColor="#ccc"
               maximumTrackTintColor="#1b39b1"
             />
             <View style={styles.audioControllers}>
               <PlayerButtom iconType='PREV' />
-              <PlayerButtom onPress={() => console.log('Hello World')} iconType='PLAY'/>
+              <View style={{marginHorizontal: 25}}>
+                <PlayerButtom 
+                  onPress={() => console.log('Hello World')} 
+                  iconType={isPlaying ? 'PLAY' : 'PAUSE'}
+                />
+              </View>
               <PlayerButtom iconType='NEXT'/>
             </View> 
         </View>
@@ -69,6 +92,6 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      paddingBottom: 10
+      paddingBottom: 25
     }
 })

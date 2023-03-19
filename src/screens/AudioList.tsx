@@ -56,20 +56,29 @@ export default function AudioList() {
   const onPlayPress = () => {}
   const onPLayListPress = () => {}
 
+  const onPlaybackStatusUpdate = (playbackStatus: AVPlaybackStatus) => {
+    if(playbackStatus.isLoaded && playbackStatus.isPlaying){
+      contextType.setPlaybackPossition(playbackStatus.positionMillis)
+      contextType.setPlaybackDuration(playbackStatus.durationMillis)
+    }
+  }
+
   //Play music
-  const handleAudioPress = async (audio: AssetIMedia) => {
+  const handleAudioPress = async (audio: AssetIMedia, i: number) => {
     
     // Play Audio for the first time
     if(contextType.soundObj === null){
       const playbackObj = new Audio.Sound()
       const status = await play(playbackObj, audio.uri)
-      const index = contextType.audioFiles.indexOf(audio)
-
+      
       contextType.setCurrentAudio(audio)
       contextType.setPlaybackObj(playbackObj)
       contextType.setSoundObj(status)
       contextType.setIsPlaying(true)
-      contextType.setCurrentAudioIndex(audio.id)
+      contextType.setCurrentAudioId(audio.id)
+      contextType.setCurrentAudioIndex(i)
+
+      playbackObj.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate)
     }
 
     // pause audio
@@ -89,12 +98,12 @@ export default function AudioList() {
     // select another audio
     if(contextType.soundObj?.isLoaded && contextType.currentAudio?.id !== audio.id){
       const status = await playNext(contextType.playbackObj, audio.uri)
-      const index = contextType.audioFiles.indexOf(audio)
-      
+     
       contextType.setCurrentAudio(audio)
       contextType.setSoundObj(status)
       contextType.setIsPlaying(true)
-      contextType.setCurrentAudioIndex(audio.id)
+      contextType.setCurrentAudioId(audio.id)
+      contextType.setCurrentAudioIndex(i)
     }
 
   }
@@ -112,9 +121,9 @@ export default function AudioList() {
                 setModalVisble(true)
                 setAudioInfo(item)
               }}
-              onAudioPress={() => handleAudioPress(item)}
+              onAudioPress={() => handleAudioPress(item, i)}
               isPlaying={contextType.isPlaying}
-              activeListItem={contextType.currentAudioIndex === item.id}
+              activeListItem={contextType.currentAudioId === item.id}
             />
           ))
         }
