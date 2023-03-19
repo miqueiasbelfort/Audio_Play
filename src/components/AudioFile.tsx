@@ -41,15 +41,15 @@ export default function AudioFile({title, duration, onOptionPress, onAudioPress,
   }
 
   const renderIcon = () => {
-    if(isPlaying) return <Entypo name='controller-paus' size={20} color="#000"/>
-    return <Entypo name='controller-play' size={20} color="#000"/>
+    if(isPlaying) return <Entypo name='controller-paus' size={20} color="#fff"/>
+    return <Entypo name='controller-play' size={20} color="#fff"/>
   }
 
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={onAudioPress}>
         <View style={styles.leftContainer}>
-          <View style={styles.thumbnail}>
+          <View style={[styles.thumbnail, {backgroundColor: activeListItem ? '#1b39b1' : 'gray'}]}>
               <Text style={styles.thumbnailText}>
                 {activeListItem ? renderIcon() : getThumbnailText(title)}
               </Text>

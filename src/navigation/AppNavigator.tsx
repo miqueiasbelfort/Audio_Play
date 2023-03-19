@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator()
 
 export default function AppNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{headerShown: false}}>
         <Tab.Screen 
             name="AudioList" 
             component={AudioList}
@@ -28,6 +28,7 @@ export default function AppNavigator() {
                     return <FontAwesome5 name="compact-disc" size={size} color={color} />
                 }
             }}
+            
         />
         <Tab.Screen 
             name="PlayList" 

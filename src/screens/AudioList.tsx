@@ -69,7 +69,7 @@ export default function AudioList() {
       contextType.setPlaybackObj(playbackObj)
       contextType.setSoundObj(status)
       contextType.setIsPlaying(true)
-      contextType.setCurrentAudioIndex(index)
+      contextType.setCurrentAudioIndex(audio.id)
     }
 
     // pause audio
@@ -94,7 +94,7 @@ export default function AudioList() {
       contextType.setCurrentAudio(audio)
       contextType.setSoundObj(status)
       contextType.setIsPlaying(true)
-      contextType.setCurrentAudioIndex(index)
+      contextType.setCurrentAudioIndex(audio.id)
     }
 
   }
@@ -114,7 +114,7 @@ export default function AudioList() {
               }}
               onAudioPress={() => handleAudioPress(item)}
               isPlaying={contextType.isPlaying}
-              activeListItem={contextType.currentAudioIndex === i}
+              activeListItem={contextType.currentAudioIndex === item.id}
             />
           ))
         }
