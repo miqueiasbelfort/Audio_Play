@@ -55,7 +55,8 @@ export function AudioProvider({children}: Children) {
   const [playbackObj, setPlaybackObj] = useState<Audio.Sound>()
   const [soundObj, setSoundObj] = useState<AVPlaybackStatus | null | undefined>(null)
   const [currentAudio, setCurrentAudio] = useState<AssetIMedia | null>(null)
-
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentAudioIndex, setCurrentAudioIndex] = useState<any>()
 
   const permissionAlert = () => {
     Alert.alert(
@@ -136,7 +137,11 @@ export function AudioProvider({children}: Children) {
         soundObj,
         setSoundObj,
         currentAudio,
-        setCurrentAudio
+        setCurrentAudio,
+        isPlaying,
+        setIsPlaying,
+        setCurrentAudioIndex,
+        currentAudioIndex
       }}
 
     >

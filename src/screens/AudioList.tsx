@@ -63,29 +63,38 @@ export default function AudioList() {
     if(contextType.soundObj === null){
       const playbackObj = new Audio.Sound()
       const status = await play(playbackObj, audio.uri)
+      const index = contextType.audioFiles.indexOf(audio)
 
       contextType.setCurrentAudio(audio)
       contextType.setPlaybackObj(playbackObj)
       contextType.setSoundObj(status)
+      contextType.setIsPlaying(true)
+      contextType.setCurrentAudioIndex(index)
     }
 
     // pause audio
     if(contextType.soundObj?.isLoaded && contextType.soundObj.isPlaying && contextType.currentAudio?.id == audio.id){
       const status = await pause(contextType.playbackObj)
       contextType.setSoundObj(status)
+      contextType.setIsPlaying(false)
     }
 
     // resume audio
     if(contextType.soundObj?.isLoaded && !contextType.soundObj.isPlaying && contextType.currentAudio?.id == audio.id){
       const status = await resume(contextType.playbackObj)
       contextType.setSoundObj(status)
+      contextType.setIsPlaying(true)
     }
 
     // select another audio
     if(contextType.soundObj?.isLoaded && contextType.currentAudio?.id !== audio.id){
       const status = await playNext(contextType.playbackObj, audio.uri)
+      const index = contextType.audioFiles.indexOf(audio)
+      
       contextType.setCurrentAudio(audio)
       contextType.setSoundObj(status)
+      contextType.setIsPlaying(true)
+      contextType.setCurrentAudioIndex(index)
     }
 
   }
@@ -104,6 +113,8 @@ export default function AudioList() {
                 setAudioInfo(item)
               }}
               onAudioPress={() => handleAudioPress(item)}
+              isPlaying={contextType.isPlaying}
+              activeListItem={contextType.currentAudioIndex === i}
             />
           ))
         }

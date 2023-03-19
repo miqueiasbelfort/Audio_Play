@@ -7,9 +7,11 @@ interface AudioListI {
   duration: number,
   onOptionPress: () => void,
   onAudioPress: () => Promise<void>,
+  isPlaying: boolean,
+  activeListItem: boolean
 }
 
-export default function AudioFile({title, duration, onOptionPress, onAudioPress}: AudioListI) {
+export default function AudioFile({title, duration, onOptionPress, onAudioPress, isPlaying, activeListItem}: AudioListI) {
   
   const getThumbnailText = (filename: string) => filename[0]
 
@@ -38,12 +40,19 @@ export default function AudioFile({title, duration, onOptionPress, onAudioPress}
     }
   }
 
+  const renderIcon = () => {
+    if(isPlaying) return <Entypo name='controller-paus' size={20} color="#000"/>
+    return <Entypo name='controller-play' size={20} color="#000"/>
+  }
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={onAudioPress}>
         <View style={styles.leftContainer}>
           <View style={styles.thumbnail}>
-              <Text style={styles.thumbnailText}>{getThumbnailText(title)}</Text>
+              <Text style={styles.thumbnailText}>
+                {activeListItem ? renderIcon() : getThumbnailText(title)}
+              </Text>
           </View>
           <View style={styles.titleContainer}>
               <Text numberOfLines={1} style={styles.title}>{title}</Text>
